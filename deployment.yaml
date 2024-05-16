@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: postgres-test
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      name: postgres-test
+  template:
+    metadata:
+      labels:
+        name: postgres-test
+    spec:
+      containers:
+        - name: postgres-test
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              value: mypass
+          ports:
+            - protocol: TCP
+              containerPort: 5432
+              # hostPort: 5432
+      restartPolicy: Always
